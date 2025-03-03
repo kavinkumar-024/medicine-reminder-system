@@ -1,0 +1,481 @@
+
+ScreenManager:
+    HomeScreen:
+    DateScreen:
+    MenuScreen:
+    AlarmScreen:
+    Alarm:
+    Alarm1Screen:
+    Alarm2Screen:
+    Alarm3Screen
+    ResetScreen:
+    Add_units:
+    #Alarm1:
+    details:
+    More_screen:
+
+
+<HomeScreen>:
+    name:'home'
+    MDFloatLayout:
+        Image:
+            source:'home.jpeg'
+            keep_ratio:'True'
+            allow_stretch:'True'
+        MDLabel:
+            id:rest_label
+            text:"LETS TAKE MEDS \n      ON TIME"
+            font_size : "30sp"
+            pos_hint:{'center_x':.69,'center_y':.89}
+            bold:True
+        MDRaisedButton:
+            text:'Date Picker'
+            font_size : "30sp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            on_press: root.manager.current = 'Date'
+
+
+
+
+
+<DateScreen>:
+    name:'Date'
+    canvas.before:
+        Color:
+            rgba:(.255,.105,0,.3)
+        Rectangle:
+            pos: self.pos
+            size:self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(48)
+        spacing: dp(16)
+
+
+        MDLabel:
+            text: "MEDS REMINDER"
+            color : "red"
+            font_size: "30sp"
+            font_name:"Arial"
+            bold: True
+            halign: "center"
+
+        MDLabel:
+            id: date_label
+            text: "Select a date and click the 'Next' button"
+            bold: True
+            halign: "center"
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(48)
+            spacing: dp(16)
+
+            MDRectangleFlatButton:
+                text: "Open Date Picker"
+                on_release: root.show_date_picker()
+                text_color: 1, 1, 1, 1
+                md_bg_color: 0, 0, 0, 1
+
+            MDRectangleFlatButton:
+                text: 'Next'
+                on_press: root.manager.current = 'menu'
+                text_color: 1, 1, 1, 1
+                md_bg_color: 0, 0, 0, 1
+
+<MenuScreen>:
+    name:'menu'
+    MDNavigationLayout:
+        md_bg_color: 0,1,1,1
+        ScreenManager:
+            Screen:
+
+                BoxLayout:
+                    orientation:'vertical'
+                    MDBottomAppBar:
+                        title: 'Demo Application'
+                        elevation:3
+
+                    Widget:
+
+
+                ScrollView:
+                    MDList:
+                        TwoLineIconListItem:
+                            text: 'MORNING'
+                            secondary_text:'schedule meds and save'
+                            pos_hint: {'center_x':.9, 'center_y':.4}
+                            on_press:lambda *args: root.list_items()
+                            IconLeftWidget:
+                                icon: 'clock'
+                            MDIconButton:
+                                icon: 'pill'
+                                pos_hint: {'center_x':.9, 'center_y':.4}
+                                on_release: root.user_input()
+                            MDIconButton:
+                                icon: 'clock'
+                                pos_hint: {'center_x':.8, 'center_y':.4}
+                                on_press: root.manager.current = 'alarm'
+
+
+
+                        TwoLineIconListItem:
+                            text: 'MIDDAY'
+                            pos_hint: {'center_x':.9, 'center_y':.4}
+                            secondary_text:'add the meds'
+                            IconLeftWidget:
+                                icon: 'clock'
+                            MDIconButton:
+                                icon: 'pill'
+                                pos_hint: {'center_x':.9, 'center_y':.4}
+                                on_release: root.user_input()
+                            MDIconButton:
+                                icon: 'clock'
+                                pos_hint: {'center_x':.8, 'center_y':.4}
+                                on_press: root.manager.current = 'alarm1'
+
+                        TwoLineIconListItem:
+                            text: 'EVENING'
+                            secondary_text:'add the meds'
+                            pos_hint: {'center_x':.9, 'center_y':.4}
+                            IconLeftWidget:
+                                icon: 'clock'
+                            MDIconButton:
+                                icon: 'pill'
+                                pos_hint: {'center_x':.9, 'center_y':.4}
+                                on_release: root.user_input()
+                            MDIconButton:
+                                icon: 'clock'
+                                pos_hint: {'center_x':.8, 'center_y':.4}
+                                on_press: root.manager.current = 'alarm2'
+
+                        TwoLineIconListItem:
+                            text: 'NIGHT'
+                            secondary_text:'add the meds'
+                            pos_hint: {'center_x':.5, 'center_y':.5}
+                            IconLeftWidget:
+                                icon: 'clock'
+                            MDIconButton:
+                                icon: 'pill'
+                                pos_hint: {'center_x':.9, 'center_y':.4}
+                                on_release: root.user_input()
+                            MDIconButton:
+                                icon: 'clock'
+                                pos_hint: {'center_x':.8, 'center_y':.4}
+                                on_press: root.manager.current = 'alarm3'
+
+    MDRaisedButton:
+        text : "save"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+        on_press: root.manager.current = 'remain'
+
+    MDRaisedButton:
+        text : "reset"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+        on_press: root.manager.current = 'reset'
+
+    MDRaisedButton:
+        text : "add units"
+        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+        on_press: root.manager.current = 'units'
+
+    MDRaisedButton:
+        text : "back"
+        on_press: root.manager.current = 'Date'
+
+    MDRaisedButton:
+        text : "details"
+        pos_hint:{'center_x':0.5,'center_y':0.1}
+        on_press: root.manager.current = 'data'
+
+
+<More_screen>:
+    name:'more'
+    BoxLayout:
+        orientation:'vertical'
+        padding:dp(48)
+        spacing:dp(16)
+
+        MDRaisedButton:
+            text : "reset"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            on_press: root.manager.current = 'reset'
+
+        MDRaisedButton:
+            text : "add units"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            on_press: root.manager.current = 'units'
+
+        MDRaisedButton:
+            text : "details"
+            pos_hint:{'center_x':0.5,'center_y':0.1}
+            on_press: root.manager.current = 'data'
+
+
+
+<Add_units>:
+    name:'units'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(48)
+        spacing: dp(16)
+
+        MDLabel:
+            id: my_label
+            text: "ADD USING ADD UNITS"
+            font_size: "24sp"
+            bold: True
+            halign: "center"
+
+        MDLabel:
+            id: click_label
+            text: "Pick"
+            font_size: "32sp"
+            bold: True
+            pos_hint:{'center_x':.5,'center_y':.8}
+
+        Spinner:
+            id: spinner_id
+            text: "Sessions"
+            size_hint: (None, None)
+            size: dp(200), dp(48)
+            pos_hint: {'center_x': 0.5}
+            values: ['Morning', 'Midday', 'Evening', 'Night']
+            on_text: root.spinner_clicked(spinner_id.text)
+
+        MDRaisedButton:
+            text: "Add Units"
+            size_hint: (None, None)
+            size: dp(200), dp(48)
+            pos_hint: {'center_x': 0.5}
+            on_release: root.on_button_click()
+
+        MDRaisedButton:
+            text: 'Back'
+            size_hint: (None, None)
+            size: dp(200), dp(48)
+            pos_hint: {'center_x': 0.5}
+            on_press: root.manager.current = 'menu'
+
+<details>:
+    name: 'data'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(48)
+        spacing: dp(16)
+
+        MDLabel:
+            id: label1
+            text: 'Label 1'
+            theme_text_color: "Secondary"
+            size_hint_y: 1
+
+        MDSeparator:
+            height: dp(2)
+            color: app.theme_cls.primary_color
+
+        MDLabel:
+            id: label2
+            text: 'Label 2'
+            theme_text_color: "Secondary"
+            size_hint_y: 1
+
+        MDSeparator:
+            height: dp(2)
+            color: app.theme_cls.primary_color
+
+        MDLabel:
+            id: label3
+            text: 'Label 3'
+            theme_text_color: "Secondary"
+            size_hint_y: 1
+
+        MDSeparator:
+            height: dp(2)
+            color: app.theme_cls.primary_color
+
+        MDLabel:
+            id: label4
+            text: 'Label 4'
+            theme_text_color: "Secondary"
+            size_hint_y: 1
+
+        MDRaisedButton:
+            text: 'Back'
+            size_hint: (None, None)
+            size: dp(200), dp(48)
+            #pos_hint: {'center_x': 0.5}
+            on_press: root.manager.current = 'menu'
+
+<ResetScreen>:
+    name: 'reset'
+
+    MDFloatLayout:
+        MDLabel:
+            id: rest_label
+            text: "     Click Reset to Reset"
+            font_size: "30sp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            bold: True
+
+        MDRaisedButton:
+            text: 'Reset'
+            font_size: "20sp"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+            on_release: root.reset()
+            size_hint: None, None
+            size: "200dp", "60dp"
+            theme_text_color: "Custom"
+            text_color: (1, 1, 1, 1)  # Customize the button text color
+            md_bg_color: (0.3, 0.6, 0.9, 1)  # Customize the button background color
+
+        MDRaisedButton:
+            text: 'Back'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            on_press: root.manager.current = 'menu'
+            size_hint: None, None
+            size: "200dp", "60dp"
+            theme_text_color: "Custom"
+            text_color: (1, 1, 1, 1)  # Customize the button text color
+            md_bg_color: (0.3, 0.6, 0.9, 1)  # Customize the button background color
+
+
+<AlarmScreen>:
+    name:'alarm'
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDLabel:
+            text: 'REMAINDER1'
+            font_size : "30sp"
+            pos_hint: {'center_y': 0.935}
+            halign:"center"
+            bold : True
+        MDIconButton:
+            icon:"plus"
+            pos_hint : {'center_x': 0.87, 'center_y': 0.94}
+            md_bg_color : 0,0,0,1
+            theme_text_color : "Custom"
+            text_color : 1,1,1,1
+            on_release : root.time_picker()
+        MDLabel:
+            id : alarm_time
+            text : ""
+            pos_hint: {'center_y': 0.5}
+            halign :"center"
+            font_size : "30sp"
+            bold : True
+        MDRaisedButton:
+            text : "back"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.4}
+            on_press: root.manager.current = 'menu'
+
+
+<Alarm>:
+    name:'remain'
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDLabel:
+            text: 'REMAINDER SAVED'
+            font_size : "30sp"
+            pos_hint: {'center_y': 0.935}
+            halign:"center"
+            bold : True
+        MDRectangleFlatButton:
+            text:'back'
+            pos_hint:{'center_x':0.5,'center_y':0.2}
+            on_press: root.manager.current = 'menu'
+
+
+<Alarm1Screen>:
+    name:'alarm1'
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDLabel:
+            text: 'REMAINDER2'
+            font_size : "30sp"
+            pos_hint: {'center_y': 0.935}
+            halign:"center"
+            bold : True
+        MDIconButton:
+            icon:"plus"
+            pos_hint : {'center_x': 0.87, 'center_y': 0.94}
+            md_bg_color : 0,0,0,1
+            theme_text_color : "Custom"
+            text_color : 1,1,1,1
+            on_release : root.time_picker()
+        MDLabel:
+            id : alarm_time
+            text : ""
+            pos_hint: {'center_y': 0.5}
+            halign :"center"
+            font_size : "30sp"
+            bold : True
+        MDRaisedButton:
+            text : "back"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.4}
+            on_press: root.manager.current = 'menu'
+
+<Alarm2Screen>:
+    name:'alarm2'
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDLabel:
+            text: 'REMAINDER3'
+            font_size : "30sp"
+            pos_hint: {'center_y': 0.935}
+            halign:"center"
+            bold : True
+        MDIconButton:
+            icon:"plus"
+            pos_hint : {'center_x': 0.87, 'center_y': 0.94}
+            md_bg_color : 0,0,0,1
+            theme_text_color : "Custom"
+            text_color : 1,1,1,1
+            on_release : root.time_picker()
+        MDLabel:
+            id : alarm_time
+            text : ""
+            pos_hint: {'center_y': 0.5}
+            halign :"center"
+            font_size : "30sp"
+            bold : True
+        MDRaisedButton:
+            text : "back"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.4}
+            on_press: root.manager.current = 'menu'
+
+<Alarm3Screen>:
+    name:'alarm3'
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDLabel:
+            text: 'REMAINDER4'
+            font_size : "30sp"
+            pos_hint: {'center_y': 0.935}
+            halign:"center"
+            bold : True
+        MDIconButton:
+            icon:"plus"
+            pos_hint : {'center_x': 0.87, 'center_y': 0.94}
+            md_bg_color : 0,0,0,1
+            theme_text_color : "Custom"
+            text_color : 1,1,1,1
+            on_release : root.time_picker()
+        MDLabel:
+            id : alarm_time
+            text : ""
+            pos_hint: {'center_y': 0.5}
+            halign :"center"
+            font_size : "30sp"
+            bold : True
+        MDRaisedButton:
+            text : "back"
+            pos_hint: {'center_x': 0.4, 'center_y': 0.4}
+            on_press: root.manager.current = 'menu'
+
+
+
+
+

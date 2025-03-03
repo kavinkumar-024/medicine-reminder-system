@@ -1,0 +1,15 @@
+# Ignore virtual environment
+.venv/
+venv/
+
+# Ignore JetBrains IDE settings
+.idea/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment/config files (optional)
+.env
+.DS_Store
